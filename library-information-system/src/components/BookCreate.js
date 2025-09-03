@@ -1,85 +1,127 @@
-import React from "react";
-function BookCreate() {
+import React, { useState } from "react";
+
+function BookCreate({ onAddBook }) {
+  const [bookTitle, setBookTitle] = useState("");
+  const [bookAuthor, setBookAuthor] = useState("");
+  const [publicationYear, setPublicationYear] = useState("");
+  const [bookDescription, setBookDescription] = useState("");
+  const [bookStatus, setBookStatus] = useState("available");
+
+  const saveBook = () => {
+    if (!bookTitle) {
+      alert("Book title is required.");
+      return;
+    }
+    if (!bookAuthor) {
+      alert("Book author is required.");
+      return;
+    }
+
+    const newBook = {
+      bookTitle,
+      bookAuthor,
+      publicationYear,
+      bookDescription,
+      bookStatus,
+    };
+
+    if (onAddBook) {
+      onAddBook(newBook);
+    }
+
+    alert("Book added successfully!");
+
+    setBookTitle("");
+    setBookAuthor("");
+    setPublicationYear("");
+    setBookDescription("");
+    setBookStatus("available");
+  };
 
   return (
-    <div style = {{
-        backgroundColor: "#f4f4f4",       
-        width: 600,                        
-        borderRadius: 5,                   
-        padding: "20px 40px 20px 20px",    
-        margin: "10px auto",              
-        fontFamily: "Arial, sans-serif",  
-      }}>
+    <div
+      style={{
+        backgroundColor: "#f4f4f4",
+        width: 600,
+        borderRadius: 5,
+        padding: "20px 40px 20px 20px",
+        margin: "10px auto",
+        fontFamily: "Arial, sans-serif",
+      }}
+    >
+      <h1 style={{ color: "blue" }}>Book Create Page</h1>
 
-      <h1 style={{ color: "blue" }}> Book Create Page</h1>
-
-      <label> Book Title</label><br />
-      <input type="text"
+      <label>Book Title</label>
+      <br />
+      <input
+        type="text"
+        value={bookTitle}
+        onChange={(e) => setBookTitle(e.target.value)}
         placeholder="Book Title"
-        style={{ width: "100%",padding: 8,marginBottom: 15         
-        }}
-      /><br />
+        style={{ width: "100%", padding: 8, marginBottom: 15 }}
+      />
+      <br />
 
-      <label>Book Author</label><br />
+      <label>Book Author</label>
+      <br />
       <input
         type="text"
+        value={bookAuthor}
+        onChange={(e) => setBookAuthor(e.target.value)}
         placeholder="Book Author"
-        style={{
-          width: "100%",          
-          padding: 8,           
-          marginBottom: 15        
-        }}
-      /><br />
+        style={{ width: "100%", padding: 8, marginBottom: 15 }}
+      />
+      <br />
 
-      <label>Publication Year</label><br />
+      <label>Publication Year</label>
+      <br />
       <input
         type="text"
-        style={{
-          width: "100%",          
-          padding: 8,              
-          marginBottom: 15      
-        }}
-      /><br />
+        value={publicationYear}
+        onChange={(e) => setPublicationYear(e.target.value)}
+        style={{ width: "100%", padding: 8, marginBottom: 15 }}
+      />
+      <br />
 
-      <label>Book Description</label><br />
+      <label>Book Description</label>
+      <br />
       <textarea
+        value={bookDescription}
+        onChange={(e) => setBookDescription(e.target.value)}
         placeholder="Book Description"
         rows={4}
-        style={{
-          width: "100%",          
-          padding: 8,              
-          marginBottom: 20         
-        }}
-      ></textarea><br />
+        style={{ width: "100%", padding: 8, marginBottom: 20 }}
+      ></textarea>
+      <br />
 
-        <label>Book Status</label><br />
-      <select style={{
-          width: "100%",           
-          padding: 8,              
-          marginBottom: 15   }}    
+      <label>Book Status</label>
+      <br />
+      <select
+        value={bookStatus}
+        onChange={(e) => setBookStatus(e.target.value)}
+        style={{ width: "100%", padding: 8, marginBottom: 15 }}
       >
         <option>available</option>
         <option>borrowed</option>
-       
-      </select><br />
+      </select>
+      <br />
 
       <button
+        onClick={saveBook}
         style={{
-          backgroundColor: "blue",   
-          color: "white",            
-          padding: "10px 20px",     
-          border: "none",            
-          borderRadius: 5,           
-          cursor: "pointer",        
-          fontSize: 16              
-        }}>  Save </button>
-
-    
-
+          backgroundColor: "blue",
+          color: "white",
+          padding: "10px 20px",
+          border: "none",
+          borderRadius: 5,
+          cursor: "pointer",
+          fontSize: 16,
+        }}
+      >
+        Save
+      </button>
     </div>
   );
 }
 
 export default BookCreate;
-
-  
